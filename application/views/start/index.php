@@ -4,19 +4,19 @@
 		var name=f.name.value;
 		var pass = f.pass.value;
 
-		var namePattern=/^[A-ZÁÉÑIÓÚ][a-záéíóúñ ]$/;
+		var namePattern=/^([A-ZÁÉÑIÓÚ])?[a-záéíóúñ ]$/;
 		var passPattern=/^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})$/;
 
 		var contador=0;
 		var wrongData=[];
-		if(isOK(name,namePattern)==false){
+		if(!isOK(name,namePattern)){
 			wrongData[contador]="nombre";
 			contador++;
 		}
 		
-		if(isOK(pass,passPattern)==false){
+		if(!isOK(pass,passPattern)){
+			wrongData[contador]="contrase&ntilde;a";
 			contador++;
-			wrongData[contador]="contraseña";
 		}
 
 		showResults(wrongData);
@@ -33,14 +33,15 @@
 	}//isOK
 
 	function showResults(array){
+		if(array.length!=0){
 		var result="Comprueba si es correcto: ";
-		if(array.length>0){
-			for(i=0;i<arrayValues.length;i++){
-				result+=array[i];
+			for(i=0;i<array.length;i++){
+				result+=array[i]+" ";
 			}
 			alertify.error(result);
 		}
 	}
+	
 </script>
 <body>
 <div class="jumbotron text-center">
